@@ -6,11 +6,11 @@
 //
 
 import SwiftUI
-import SwiftData
 
 struct ContentView: View {
+   
     var body: some View {
-        Text("this is text")
+        Text("This is the main content")
     }
 }
 
