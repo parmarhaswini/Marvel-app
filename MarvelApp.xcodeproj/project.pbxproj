@@ -30,6 +30,22 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		4BA436542FC5A7360049A898 /* Exceptions for "MarvelApp" folder in "MarvelAppTests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Core/CommonComponents/Buttons/UIButtons.swift,
+				Presentations/Features/Signup/View/SignupView.swift,
+			);
+			target = A77B849E2F94F04C009D5760 /* MarvelAppTests */;
+		};
+		4BA436552FC5A7360049A898 /* Exceptions for "MarvelApp" folder in "MarvelAppUITests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Core/CommonComponents/Buttons/UIButtons.swift,
+				Presentations/Features/Signup/View/SignupView.swift,
+			);
+			target = A77B84A82F94F04C009D5760 /* MarvelAppUITests */;
+		};
 		A7FC03902FB8F25800F4B6F9 /* Exceptions for "MarvelApp" folder in "MarvelApp" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
@@ -44,6 +60,8 @@
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
 				A7FC03902FB8F25800F4B6F9 /* Exceptions for "MarvelApp" folder in "MarvelApp" target */,
+				4BA436542FC5A7360049A898 /* Exceptions for "MarvelApp" folder in "MarvelAppTests" target */,
+				4BA436552FC5A7360049A898 /* Exceptions for "MarvelApp" folder in "MarvelAppUITests" target */,
 			);
 			path = MarvelApp;
 			sourceTree = "<group>";
