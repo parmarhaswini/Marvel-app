@@ -34,7 +34,7 @@
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Core/CommonComponents/Buttons/UIButtons.swift,
-				Presentations/Features/Signup/View/SignupView.swift,
+				Presentations/Features/AuthView/View/AuthView.swift,
 			);
 			target = A77B849E2F94F04C009D5760 /* MarvelAppTests */;
 		};
@@ -42,7 +42,7 @@
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Core/CommonComponents/Buttons/UIButtons.swift,
-				Presentations/Features/Signup/View/SignupView.swift,
+				Presentations/Features/AuthView/View/AuthView.swift,
 			);
 			target = A77B84A82F94F04C009D5760 /* MarvelAppUITests */;
 		};

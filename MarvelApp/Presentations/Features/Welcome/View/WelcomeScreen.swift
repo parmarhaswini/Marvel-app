@@ -28,102 +28,131 @@ import SwiftUI
  The view uses a @StateObject view model to control page state, page content, and button logic. Designed to act as the first screen shown to new or returning users.
 */
 struct WelcomeScreenView: View {
-
+	
 	// observable viewmodel instance
 	@StateObject private var viewModel: WelcomeScreenViewModel = WelcomeScreenViewModel()
+	// login / sign up auth type to navigate to the respective screen
+	@State private var selectedAuthType: AuthType?
 
 	var body: some View {
+		NavigationStack {
+			ZStack {
+				// MARK: - Full Screen Swipe
+				TabView(selection: $viewModel.currentPage) {
 
-		ZStack {
-			// MARK: - Full Screen Swipe
-			TabView(selection: $viewModel.currentPage) {
+					ForEach(Array(viewModel.pages.enumerated()), id: \.offset) { offset, item in
 
-				ForEach(Array(viewModel.pages.enumerated()), id: \.offset) { offset, item in
+						ZStack {
+							// Background
+							item.image
+								.resizable()
+								.ignoresSafeArea()
+								.scaledToFill()
+						}
+						.tag(offset)
+					}
+				}
+				.ignoresSafeArea()
+				.tabViewStyle(
+					.page(indexDisplayMode: .never))
 
-					ZStack {
-						// Background
-						item.image
+				// MARK: - Foreground Content
+				VStack {
+					Spacer()
+					// Centered Logo and controls
+					VStack(spacing: Numbers.twenty) {
+						// Logo
+						ImageAsset.launchscreenImage.view
 							.resizable()
-							.scaledToFill()
-							.ignoresSafeArea()
+							.scaledToFit()
+							.frame(width: Numbers.oneEightyEight, height: Numbers.oneFourty)
+						// Page Control
+						HStack(spacing: Numbers.ten) {
+							ForEach(0..<viewModel.pages.count, id: \.self) { index in
+								Circle()
+									.fill(
+										index == viewModel.currentPage
+										? Colors.redED1B24
+										: Colors.whiteFFFFFF
+									)
+									.frame(width: Numbers.eight, height: Numbers.eight)
+									.scaleEffect(
+										index == viewModel.currentPage ? Numbers.onePointtwo : Numbers.one
+									)
+									.animation(
+										.easeInOut(duration: Numbers.pointTwo),
+										value: viewModel.currentPage
+									)
+							}
+						}
+						// Title
+						Text(viewModel.pages[viewModel.currentPage].title)
+							.font(
+								FontsConst.semiBold(Numbers.twenty)
+							)
+							.multilineTextAlignment(.center)
+							.foregroundColor(.white)
+							.padding(.horizontal, Numbers.thirty)
+							.frame(height: Numbers.hundred)
+							.animation(.easeInOut, value: viewModel.currentPage)
 					}
-					.tag(offset)
+					Spacer()
 				}
-			}
-			.ignoresSafeArea()
-			.tabViewStyle(.page(indexDisplayMode: .never))
+				.frame(maxWidth: .infinity,
+					   maxHeight: .infinity)
 
-			// MARK: - Foreground Content
-			VStack {
-				Spacer()
-				// Centered Logo and controls
-				VStack(spacing: Numbers.twenty) {
-					// Logo
-					ImageAsset.launchscreenImage.view
-						.resizable()
-						.scaledToFit()
-						.frame(width: Numbers.oneEightyEight, height: Numbers.oneFourty)
-					// Page Control
-					HStack(spacing: Numbers.ten) {
-						ForEach(0..<viewModel.pages.count, id: \.self) { index in
-							Circle()
-								.fill(
-									index == viewModel.currentPage
-									? Colors.redED1B24
-									: Colors.whiteFFFFFF
-								)
-								.frame(width: Numbers.eight, height: Numbers.eight)
-								.scaleEffect(
-									index == viewModel.currentPage ? Numbers.onePointtwo : Numbers.one
-								)
-								.animation(
-									.easeInOut(duration: Numbers.pointTwo),
-									value: viewModel.currentPage
-								)
+				VStack {
+					if(viewModel.pages[viewModel.currentPage].showContinueButton) {
+						UIButtons(title: TextsConst.continueButtonText, style: .filled) {
+							viewModel.currentPage = viewModel.currentPage.advanced(by: 1)
 						}
-					}
-					// Title
-					Text(viewModel.pages[viewModel.currentPage].title)
-						.font(
-							FontsConst.semiBold(Numbers.twenty)
-						)
-						.multilineTextAlignment(.center)
-						.foregroundColor(.white)
-						.padding(.horizontal, Numbers.thirty)
-						.frame(height: Numbers.hundred)
-						.animation(.easeInOut, value: viewModel.currentPage)
-				}
-				Spacer()
-			}
-			.frame(maxWidth: .infinity, maxHeight: .infinity)
+						.padding(.horizontal,
+								 Numbers.twentyFour)
+						.padding(.bottom,
+								 Numbers.eighty)
+					} else {
+						VStack(alignment: .center) {
 
-			VStack {
-				if(viewModel.pages[viewModel.currentPage].showContinueButton) {
-					UIButtons(title: TextsConst.continueButtonText, style: .filled) {
-						viewModel.currentPage = viewModel.currentPage.advanced(by: 1)
-					}
-					.padding(.horizontal, Numbers.twentyFour)
-					.padding(.bottom, Numbers.eighty)
-				} else {
-					VStack(alignment: .center) {
-						UIButtons(title: TextsConst.signUpText, style: .filled) {
-							//navigate to sign up page
+							// sign up button
+							UIButtons(title: TextsConst.signUpText, style: .filled) {
+								// navigate to sign up page
+								selectedAuthType = .signup
+							}
+							.padding(.horizontal,
+									 Numbers.twentyFour)
+							.padding(.bottom,
+									 Numbers.thirty)
+
+							// login button
+							UIButtons(title: TextsConst.loginText, style: .bordered) {
+								//navigate to login page
+								selectedAuthType = .login
+
+							}
+							.padding(.horizontal,
+									 Numbers.twentyFour)
+							.padding(.bottom,
+									 Numbers.eighty)
 						}
-						.padding(.horizontal, Numbers.twentyFour)
-						.padding(.bottom, Numbers.thirty)
-						UIButtons(title: TextsConst.loginText, style: .bordered) {
-							//navigate to login page
-						}
-						.padding(.horizontal, Numbers.twentyFour)
-						.padding(.bottom, Numbers.eighty)
 					}
 				}
+				.frame(maxWidth: .infinity,
+					   maxHeight: .infinity,
+					   alignment: .bottom)
+
 			}
-			.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
+			.navigationDestination(item: $selectedAuthType) { type in
+				AuthView(
+					type: type,
+					selectedAuthType: $selectedAuthType
+				)
+			}
 		}
+		.navigationBarBackButtonHidden(true)
 	}
 }
 
 #Preview {
 	WelcomeScreenView()
 }
+

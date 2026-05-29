@@ -36,6 +36,10 @@ struct TextsConst {
 	static let alreadyHaveAnAccountText = "Already have an account?"
 	static let loginButtonText = "Login"
 
+	static let hideButtonText = "Hide"
 	//login
 	static let dontHaveAnAccountText = "Don't have an account?"
+
+	static let facebookText = "Facebook"
+	static let googleText = "Google"
 }

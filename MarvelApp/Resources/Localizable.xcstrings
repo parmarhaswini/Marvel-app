@@ -1,6 +1,9 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "" : {
+
+    },
     "welcome_title" : {
       "extractionState" : "manual",
       "localizations" : {

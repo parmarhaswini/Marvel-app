@@ -24,7 +24,7 @@ struct UIButtons: View {
 	var borderColor: Color = Colors.redED1B24
 	var borderWidth: CGFloat = Numbers.eight
 	var cornerRadius: CGFloat = 0
-	var height: CGFloat = Numbers.fiftyFive
+	var height: CGFloat = Numbers.fifty
 
 	let style: ButtonStyle
 	let action: () -> Void
