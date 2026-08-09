@@ -34,54 +34,57 @@ The application should follow **MVVM + Clean Architecture** with separate framew
 ```text
 MarvelApp
 │
-├── App
-│   └── MarvelAppApp.swift
-│
-├── Presentation
-│   ├── Master
-│   │   ├── CharacterListView.swift
-│   │   └── CharacterListViewModel.swift
-│   ├── Detail
-│   │   ├── CharacterDetailView.swift
-│   │   └── CharacterDetailViewModel.swift
-│   └── Components
-│       ├── CharacterRowView.swift
-│       ├── LoadingView.swift
-│       ├── ErrorView.swift
-│       └── AsyncImageView.swift
-│
-├── Domain
-│   ├── Entities
-│   │   └── Character.swift
-│   ├── Repositories
-│   │   └── CharacterRepository.swift
-│   └── UseCases
-│       ├── FetchCharactersUseCase.swift
-│       └── FetchCharacterDetailUseCase.swift
-│
-├── Data
-│   ├── Network
-│   │   ├── APIClient.swift
-│   │   └── CharacterRemoteDataSource.swift
-│   ├── Local
-│   │   ├── CharacterLocalDataSource.swift
-│   │   └── DatabaseManager.swift
-│   ├── Models
-│   │   └── CharacterDTO.swift
-│   └── Repositories
-│       └── CharacterRepositoryImpl.swift
+├── MarvelApp
+│   ├── MarvelApp.swift
+│   └── AppContainer.swift
 │
 ├── Core
-│   ├── DI
 │   ├── Networking
+│   ├── Database
 │   ├── Localization
-│   ├── Accessibility
+│   ├── Configuration
 │   └── Utilities
 │
+├── SharedUI
+│   ├── Components
+│   ├── Theme
+│   └── Extensions
+│
+├── Authentication
+│   ├── Presentation
+│   │   ├── Login
+│   │   └── Signup
+│   │
+│   ├── Domain
+│   │   ├── Entities
+│   │   ├── UseCases
+│   │   └── Repositories
+│   │
+│   └── Data
+│       ├── Remote
+│       ├── Local
+│       ├── DTO
+│       └── Repository
+│
+├── Characters
+│   ├── Presentation
+│   │   ├── CharacterList
+│   │   └── CharacterDetail
+│   │
+│   ├── Domain
+│   │   ├── Entities
+│   │   ├── UseCases
+│   │   └── Repositories
+│   │
+│   └── Data
+│       ├── Remote
+│       ├── Local
+│       ├── DTO
+│       └── Repository
+│
 └── Tests
-    ├── DomainTests
-    ├── DataTests
-    └── PresentationTests
+    ├── AuthenticationTests
+    └── CharactersTests
 ```
 
 ### Framework Separation
